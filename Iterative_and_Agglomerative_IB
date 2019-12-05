@@ -44,7 +44,7 @@ tmp = np.zeros((Ny, 1))  # initialize the temporary matrix to store conditional 
 for i in range(0, Nx):
     v = np.exp(-(y_d - alphabet[i]) ** 2 / sigma2_N)
     tmp = np.append(tmp, v, axis=1)
-#
+
 py = tmp[:, -Nx:]  # remove the zero from the first column of the matrix
 py_x = py_x * py  # obtain the conditional pdf
 
@@ -55,7 +55,7 @@ p_x_y = py_x * p_x  # p(x,y) joint probability of x and y
 p_y = np.sum(p_x_y, 1)  # p(y)
 px_y = py_x * np.tile(np.expand_dims(np.tile(p_x, Ny // Nx) / p_y, axis=1), (1, Nx))
 # Iterative IB
-beta = np.arange(0.1,5,0.1)
+beta = np.arange(0.1, 5, 0.1)
 convergence_param = 10 ** -4
 
 # initialization of p(z|y)
@@ -73,11 +73,11 @@ p_x_y_expanded = np.tile(np.expand_dims(p_x_y, axis=0), (Nz, 1, 1))  # p(x,y) ex
 px_z = np.sum(pz_y_expanded * p_x_y_expanded, 1)  # p(x|z)
 px_z_expanded = np.tile(np.expand_dims(px_z, axis=1), (1, Ny, 1))
 px_y_expanded = np.tile(np.expand_dims(px_y, axis=0), (Nz, 1, 1))
+Ixz = []
+Iyz = []
 count = 0
-b = []
-v = []
-while count <= 100:
-    for i in range(len(beta)-1):
+for i in range(len(beta)):
+    while count <= 100:
         KL = np.sum((np.log(px_y_expanded + 1e-31) - np.log(px_z_expanded + 1e-31)) * px_y_expanded, 2)  # KL divergence
         exponential_term = np.exp(-(beta[i] * KL))
         numerator = np.tile(np.expand_dims(p_z, axis=1), (1, Ny)) * exponential_term
@@ -85,32 +85,30 @@ while count <= 100:
         pz_y1 = numerator / denominator
         p_z1 = np.sum(p_y * pz_y1, 1)
         g = np.tile(np.expand_dims(pz_y1, axis=2), (1, 1, Nx)) * p_x_y_expanded
-        g = np.sum(g, 1) / np.tile(np.expand_dims(p_z1, axis=1), (1, 4))
+        g = np.sum(g, 1) / np.tile(np.expand_dims(p_z1 + 1e-31, axis=1), (1, 4))
         px_z1 = np.nan_to_num(g)
-        p_x_z = px_z1 * np.tile(np.expand_dims(p_z1, axis=1), (1, Nx))
-        w = np.tile(p_x, Nz // Nx) * p_z1
-        w1 = np.log(p_x_z + 1e-31) - np.tile(np.expand_dims(np.log(w + 1e-31), axis=1), (1, Nx))
-        I_x_z = np.sum(p_x_z * w1)
-        p_y_z = pz_y1 * p_y
-        w2 = p_y * np.tile(p_z1, Ny // Nz)
-        w3 = np.log(p_y_z + 1e-31) - np.log(w2 + 1e-31)
-        I_y_z = np.sum(p_y_z * w3)
-        b.append(I_x_z)
-        v.append(I_y_z)
         pi = [0.5, 0.5]
         p = pi[0] * pz_y1 + pi[1] * pz_y
         KL1 = np.sum((np.log(pz_y1 + 1e-31) - np.log(p + 1e-31)) * pz_y1, 0)
         KL2 = np.sum((np.log(pz_y + 1e-31) - np.log(p + 1e-31)) * pz_y, 0)
         JS = pi[0] * KL1 + pi[1] * KL2
-    if JS.any() <= convergence_param:
-        break
-    else:
-        p_z = p_z1
-        pz_y = pz_y1
-    count = count + 1
+        if np.all(JS <= convergence_param):
+            p_x_z = px_z1 * np.tile(np.expand_dims(p_z1, axis=1), (1, Nx))
+            w = np.tile(p_x, Nz // Nx) * p_z1
+            w1 = np.log(p_x_z + 1e-31) - np.tile(np.expand_dims(np.log(w + 1e-31), axis=1), (1, Nx))
+            I_x_z = np.sum(p_x_z * w1)
+            p_y_z = pz_y1 * p_y
+            w2 = p_y * np.tile(p_z1, Ny // Nz)
+            w3 = np.log(p_y_z + 1e-31) - np.log(w2 + 1e-31)
+            I_y_z = np.sum(p_y_z * w3)
+            Ixz.append(I_x_z)
+            Iyz.append(I_y_z)
+            break
+        else:
+            p_z = p_z1
+            pz_y = pz_y1
+        count = count + 1
 
-
-
-plt.plot(v[0:48], b[0:48])
+plt.plot(Iyz, Ixz)
 plt.show()
 obinna = 5
