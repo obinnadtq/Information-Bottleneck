@@ -8,9 +8,9 @@ np.random.seed(10)
 
 # parameters
 SNR_db = 6  # SNR in db
-Nx = 4   # cardinality of source signal
-Ny = 256  # cardinality of quantizer input
-Nz = 64 # cardinality of quantizer output
+Nx = 4  # cardinality of source signal
+Ny = 8  # cardinality of quantizer input
+Nz = 8  # cardinality of quantizer output
 alphabet = np.array([-1.5, -0.5, 0.5, 1.5])
 
 # mapping to ASK
@@ -36,7 +36,7 @@ dy = 2 * (np.amax(alphabet) + 5 * np.sqrt(sigma2_N)) / Ny
 
 # discrete y
 y_d = np.arange(-(np.amax(alphabet) + 5 * np.sqrt(sigma2_N)), (np.amax(alphabet) + 5 * np.sqrt(sigma2_N)), dy).reshape(
-        Ny, 1)
+    Ny, 1)
 
 p_x = 1 / Nx * np.ones(Nx)  # p(x)
 py_x = np.ones((Ny, Nx))  # initialized p(y|x)
@@ -55,8 +55,7 @@ p_x_y = py_x * p_x  # p(x,y) joint probability of x and y
 p_y = np.sum(p_x_y, 1)  # p(y)
 px_y = py_x * np.tile(np.expand_dims(np.tile(p_x, Ny // Nx) / p_y, axis=1), (1, Nx))
 
-
- # initialization of p(z|y)
+# initialization of p(z|y)
 pz_y = np.zeros((Nz, Ny))
 for i in range(0, Nz):
     temp = np.arange((i * np.floor(Ny / Nz)), min(((i + 1) * np.floor(Ny / Nz)), Ny), dtype=int)
@@ -73,3 +72,26 @@ I_x_y = np.sum(p_x_y * (np.log(p_x_y) - np.tile(np.expand_dims(np.log(np.tile(p_
 H_y = -np.sum(p_y * np.log(p_y))
 Ixz = []
 Iyz = []
+
+# Agglomerative IB
+beta = 5
+# for i in range(len(pz_y)):
+pz_y_new = pz_y[0] + pz_y[1]
+pz_y_updated = np.copy(pz_y)
+pz_y_updated[0] = pz_y_new
+pz_y_updated = np.delete(pz_y_updated, 1, axis=0)
+p_z_new = p_z[0] + p_z[1]
+pi = [p_z[0] / p_z_new, p_z[1] / p_z_new]
+p_bar1 = pi[0] * px_z[0] + pi[1] * px_z[1]
+DKL1 = np.sum(px_z[0] * (np.log(px_z[0] - np.log(p_bar1))))
+DKL2 = np.sum(px_z[2] * (np.log(px_z[1] - np.log(p_bar1))))
+JS_1_2 = pi[0] * DKL1 + pi[1] * DKL2
+py_z_i = pz_y[0] * p_y/p_z[0]
+py_z_j = pz_y[1] * p_y/p_z[1]
+p_bar2 = pi[0] * py_z_i + pi[1] * py_z_j
+DKL3 = np.sum(py_z_i * (np.log(py_z_i+1e-31) - np.log(p_bar2+1e-31)))
+DKL4 = np.sum(py_z_j * (np.log(py_z_j+1e-31 - np.log(p_bar2+1e-31))))
+JS_3_4 = pi[0] * DKL3 + pi[1] * DKL4
+dist = JS_1_2 - (1/beta) * JS_3_4
+deltaLMax = p_z_new * dist
+obinna = 5
