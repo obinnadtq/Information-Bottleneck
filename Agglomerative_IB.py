@@ -75,23 +75,28 @@ Iyz = []
 
 # Agglomerative IB
 beta = 5
-# for i in range(len(pz_y)):
-pz_y_new = pz_y[0] + pz_y[1]
-pz_y_updated = np.copy(pz_y)
-pz_y_updated[0] = pz_y_new
-pz_y_updated = np.delete(pz_y_updated, 1, axis=0)
-p_z_new = p_z[0] + p_z[1]
-pi = [p_z[0] / p_z_new, p_z[1] / p_z_new]
-p_bar1 = pi[0] * px_z[0] + pi[1] * px_z[1]
-DKL1 = np.sum(px_z[0] * (np.log(px_z[0] - np.log(p_bar1))))
-DKL2 = np.sum(px_z[2] * (np.log(px_z[1] - np.log(p_bar1))))
-JS_1_2 = pi[0] * DKL1 + pi[1] * DKL2
-py_z_i = pz_y[0] * p_y/p_z[0]
-py_z_j = pz_y[1] * p_y/p_z[1]
-p_bar2 = pi[0] * py_z_i + pi[1] * py_z_j
-DKL3 = np.sum(py_z_i * (np.log(py_z_i+1e-31) - np.log(p_bar2+1e-31)))
-DKL4 = np.sum(py_z_j * (np.log(py_z_j+1e-31 - np.log(p_bar2+1e-31))))
-JS_3_4 = pi[0] * DKL3 + pi[1] * DKL4
-dist = JS_1_2 - (1/beta) * JS_3_4
-deltaLMax = p_z_new * dist
-obinna = 5
+count = 0
+minValue = 1
+for i in range(len(pz_y)-1):
+    pz_y_new = pz_y[count] + pz_y[i+1]
+    pz_y_updated = np.copy(pz_y)
+    pz_y_updated[count] = pz_y_new
+    pz_y_updated = np.delete(pz_y_updated, i+1, axis=0)
+    p_z_new = p_z[count] + p_z[i+1]
+    pi = [p_z[count] / p_z_new, p_z[i+1] / p_z_new]
+    p_bar1 = pi[0] * px_z[count] + pi[1] * px_z[i+1]
+    DKL1 = np.sum(px_z[count] * (np.log(px_z[count] - np.log(p_bar1))))
+    DKL2 = np.sum(px_z[i+1] * (np.log(px_z[i+1] - np.log(p_bar1))))
+    JS_1_2 = pi[0] * DKL1 + pi[1] * DKL2
+    py_z_i = pz_y[count] * p_y/p_z[count]
+    py_z_j = pz_y[i+1] * p_y/p_z[i+1]
+    p_bar2 = pi[0] * py_z_i + pi[1] * py_z_j
+    DKL3 = np.sum(py_z_i * (np.log(py_z_i+1e-31) - np.log(p_bar2+1e-31)))
+    DKL4 = np.sum(py_z_j * (np.log(py_z_j+1e-31 - np.log(p_bar2+1e-31))))
+    JS_3_4 = pi[0] * DKL3 + pi[1] * DKL4
+    dist = JS_1_2 - (1/beta) * JS_3_4
+    deltaLMax = p_z_new * dist
+    if deltaLMax < minValue:
+        minValue = deltaLMax
+        pz_y_updated_new = pz_y_updated
+hilary = 6
