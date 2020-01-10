@@ -9,8 +9,8 @@ np.random.seed(10)
 # parameters
 SNR_db = 6  # SNR in db
 Nx = 4  # cardinality of source signal
-Ny = 8  # cardinality of quantizer input
-Nz = 8  # cardinality of quantizer output
+Ny = 64  # cardinality of quantizer input
+Nz = 64  # cardinality of quantizer output
 alphabet = np.array([-1.5, -0.5, 0.5, 1.5])
 
 # mapping to ASK
@@ -56,47 +56,62 @@ p_y = np.sum(p_x_y, 1)  # p(y)
 px_y = py_x * np.tile(np.expand_dims(np.tile(p_x, Ny // Nx) / p_y, axis=1), (1, Nx))
 
 # initialization of p(z|y)
-pz_y = np.zeros((Nz, Ny))
-for i in range(0, Nz):
-    temp = np.arange((i * np.floor(Ny / Nz)), min(((i + 1) * np.floor(Ny / Nz)), Ny), dtype=int)
-    pz_y[i, temp] = 1
-if temp[-1] < Ny:
-    pz_y[i, temp[-1] + 1:] = 1
-p_z = np.sum(np.tile(p_y, (Nz, 1)) * pz_y, 1)
-pz_y_expanded = np.tile(np.expand_dims(pz_y, axis=2), (1, 1, Nx))  # p(z|y) expanded dimension
-p_x_y_expanded = np.tile(np.expand_dims(p_x_y, axis=0), (Nz, 1, 1))  # p(x,y) expanded dimension
-px_z = np.tile(np.expand_dims(1 / p_z, axis=1), (1, 4)) * np.sum(pz_y_expanded * p_x_y_expanded, 1)
-px_z_expanded = np.tile(np.expand_dims(px_z, axis=1), (1, Ny, 1))
-px_y_expanded = np.tile(np.expand_dims(px_y, axis=0), (Nz, 1, 1))
-I_x_y = np.sum(p_x_y * (np.log(p_x_y) - np.tile(np.expand_dims(np.log(np.tile(p_x, Ny // Nx) * p_y), axis=1), (1, Nx))))
-H_y = -np.sum(p_y * np.log(p_y))
+
 Ixz = []
 Iyz = []
 
 # Agglomerative IB
-beta = 5
-count = 0
+beta = 100
+counter = 0
+
+# while len(pz_y) > 6:
 minValue = 1
-for i in range(len(pz_y)-1):
-    pz_y_new = pz_y[count] + pz_y[i+1]
-    pz_y_updated = np.copy(pz_y)
-    pz_y_updated[count] = pz_y_new
-    pz_y_updated = np.delete(pz_y_updated, i+1, axis=0)
-    p_z_new = p_z[count] + p_z[i+1]
-    pi = [p_z[count] / p_z_new, p_z[i+1] / p_z_new]
-    p_bar1 = pi[0] * px_z[count] + pi[1] * px_z[i+1]
-    DKL1 = np.sum(px_z[count] * (np.log(px_z[count] - np.log(p_bar1))))
-    DKL2 = np.sum(px_z[i+1] * (np.log(px_z[i+1] - np.log(p_bar1))))
-    JS_1_2 = pi[0] * DKL1 + pi[1] * DKL2
-    py_z_i = pz_y[count] * p_y/p_z[count]
-    py_z_j = pz_y[i+1] * p_y/p_z[i+1]
-    p_bar2 = pi[0] * py_z_i + pi[1] * py_z_j
-    DKL3 = np.sum(py_z_i * (np.log(py_z_i+1e-31) - np.log(p_bar2+1e-31)))
-    DKL4 = np.sum(py_z_j * (np.log(py_z_j+1e-31 - np.log(p_bar2+1e-31))))
-    JS_3_4 = pi[0] * DKL3 + pi[1] * DKL4
-    dist = JS_1_2 - (1/beta) * JS_3_4
-    deltaLMax = p_z_new * dist
-    if deltaLMax < minValue:
-        minValue = deltaLMax
-        pz_y_updated_new = pz_y_updated
-hilary = 6
+
+# while count < len(pz_y):
+while Nz > 1:
+    pz_y = np.zeros((Nz, Ny))
+    for i in range(0, Nz):
+        temp = np.arange((i * np.floor(Ny / Nz)), min(((i + 1) * np.floor(Ny / Nz)), Ny), dtype=int)
+        pz_y[i, temp] = 1
+    if temp[-1] < Ny:
+        pz_y[i, temp[-1] + 1:] = 1
+    p_z = np.sum(np.tile(p_y, (Nz, 1)) * pz_y, 1)
+    pz_y_expanded = np.tile(np.expand_dims(pz_y, axis=2), (1, 1, Nx))  # p(z|y) expanded dimension
+    p_x_y_expanded = np.tile(np.expand_dims(p_x_y, axis=0), (Nz, 1, 1))  # p(x,y) expanded dimension
+    px_z = np.tile(np.expand_dims(1 / p_z, axis=1), (1, 4)) * np.sum(pz_y_expanded * p_x_y_expanded, 1)
+    for i in range(len(pz_y)):
+        count = 0
+        while count < len(pz_y):
+            pz_y_updated = np.copy(pz_y)
+            if count == i:
+                pz_y_updated = pz_y_updated
+            else:
+                pz_y_new = pz_y[count] + pz_y[i]
+                pz_y_updated[count] = pz_y_new
+                pz_y_updated = np.delete(pz_y_updated, i, axis=0)
+                pz_y_updated = pz_y_updated
+                p_z_new = p_z[count] + p_z[i]
+                pi = [p_z[count] / p_z_new, p_z[i] / p_z_new]
+                p_bar1 = pi[0] * px_z[count] + pi[1] * px_z[i]
+                DKL1 = np.sum(px_z[count] * (np.log(px_z[count] - np.log(p_bar1))))
+                DKL2 = np.sum(px_z[i] * (np.log(px_z[i] - np.log(p_bar1))))
+                JS_1_2 = pi[0] * DKL1 + pi[1] * DKL2
+                py_z_i = pz_y[count] * p_y / p_z[count]
+                py_z_j = pz_y[i] * p_y / p_z[i]
+                p_bar2 = pi[0] * py_z_i + pi[1] * py_z_j
+                DKL3 = np.sum(py_z_i * (np.log(py_z_i + 1e-31) - np.log(p_bar2 + 1e-31)))
+                DKL4 = np.sum(py_z_j * (np.log(py_z_j + 1e-31 - np.log(p_bar2 + 1e-31))))
+                JS_3_4 = pi[0] * DKL3 + pi[1] * DKL4
+                dist = JS_1_2 - (1 / beta) * JS_3_4
+                deltaLMax = p_z_new * dist
+                if deltaLMax < minValue:
+                    minValue = deltaLMax
+                    pz_y_updated_new = pz_y_updated
+            count = count + 1
+    pz_y = pz_y_updated_new
+    Nz = Nz - 1
+
+# Nz = Nz - 1
+obinn = 5
+# counter = counter + 1
+# obinna = 5
