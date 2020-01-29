@@ -1,0 +1,9 @@
+\chapter{Introduction}
+
+Communications Engineering and Computer Science have certain things in common with respect to data transfer and communication. Data detection and classification can be seen as similar problems. In Computer science, we can use certain Machine Learning algorithms to solve such classification problems. In Communications, such problems can be solved from the Information Theory perspective by a method known as Information Bottleneck (IB). There are different algorithms that are used to implement the IB, two of which will be investigated in depth in this report. They are Iterative IB and Agglomerative IB. The basic idea of the IB method is squeezing data through a bottleneck. This is a data compression process. Given a source data which can be mapped using any of the mapping schemes (Phase Shift Keying, Amplitude Shift Keying or Quadrature Amplitude Modulation). The data is passed through an Additive White Gaussian Noise (AWGN) channel. The source data has a certain cardinality which is assigned to it. The output of the AWGN channel which is mixture of the noise and source signal has to be quantized with a quantizer which will be designed. We design the quantizer such that the output of the quantizer contains as much information as possible of the source signal. In essence, we want to maximize the mutual information between the output of the quantizer and source alphabet while keeping the mutual information between the input and output of the quantizer within a certain level. 
+
+\section{Motivation and Goal}
+
+The number of clusters or the cardinality affects the performance of the different IB algorithms. The goal is  to investigate how the cardinality affects the mutual information and rates of the Iterative IB and Agglomerative IB. The complexity of each algorithm with respect to the cardinality will be investigated as well their convergence behaviour.
+
+\section{Report Outline}

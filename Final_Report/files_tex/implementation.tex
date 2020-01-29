@@ -1,0 +1,98 @@
+\chapter{Implementation}
+This chapter shall outline the processes and steps used in implementing the Iterative IB algorithm as well as the Agglomerative IB algorithm. Python3 was used to implement both algorithms. Numpy and Matplotlib are the relevant python libraries which was used for this implementation. The Iterative IB and Agglomerative IB both have similar initial implementations just before running their individual algorithms. To keep things simple, we would start with the general implementation common to both algorithms before moving on to the individual algorithms.
+
+\section{General Implementation}
+The implementation began with importing the relevant libraries needed. The libraries imported include numpy for numerical analysis, matplotlib for plotting and data visualization, time in order to measure the time it takes for each algorithm to run. A mapper class was also imported which was used for mapping the source signal from binary to Amplitude Shift Keying (ASK) values. \\
+The signal-to-noise ratio (SNR) used was 6 dB. The cardinality i.e. the number of elements of the input signal $X$ was set to 4 and real values were used for the source signal to make the investigation simple enough and not trivial by choosing a lower cardinality.  The cardinality of $Y$ which is a noisy observation of $X$ was set to be 64 which is large enough to represent $X$. \\
+The cardinality of the compressed signal $Z$ which should be as large as the cardinality of X was set to 64 for the Iterative IB. For the Agglomerative IB, the cardinality of $Z$ was set to be the same cardinality of $Y$ which is 64. However the cardinality of $Z$ was varied in both algorithms in order to investigate the effect on the performance of each algorithm.\\
+The input signal $X$ was modelled to be uniformly distributed that means each alphabet of the source signal is equally likely. The channel was modelled to be an Additive White Gaussian Noise (AWGN) channel. The output $Y$ of the channel is a sum of the input signal and the noise which is Gaussian distributed with zero mean and variance(power) $\sigma_{N}^2$.  The noise is Gaussian because it is assumed to be the sum of a large number of random processes which results in a Gaussian/Normal  distribution approximately if none of the individual process has a dominant effect on the variance. This is known as the \emph{Central Limit Theorem}. Hence the output of the signal is also gaussian distributed.\\
+The signals were modelled to follow the Markov chain $\mathcal{X}$ $\rightarrow$ $\mathcal{Y}$ $\rightarrow$ $\mathcal{Z}$ such that $\mathcal{Z}$cannot contain more information about $\mathcal{X}$ than what is already in $\mathcal{Y}$.\\
+
+\begin{tabularx}{1\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\raggedright\arraybackslash}X | }
+ \hline
+ Parameter & Description & Value \\
+ \hline
+SNR  & Signal-to-Noise Ratio  & 6 dB \\
+\hline
+$N_x$  & Cardinality of X  & 4 \\
+\hline
+$N_y$  & Cardinality of Y  & 64 \\
+\hline
+$N_z$  & Cardinality of Z  & 32 for Iterative IB \newline 64 for Agglomerative IB \\
+\hline
+$alphabet$  & Input Alphabet & 4-ASK\\
+\hline
+$\sigma_{X}^2$  & Variance of source signal & 1\\
+\hline
+$p(x)$  & Probability of source signal & Uniform distribution\\
+\hline
+$p(y)$  & Probability of output signal & Gaussian distribution\\
+\hline
+$p(z|y)$  & Quanitizer & Initialiazed as a uniform quantizer\\
+\hline
+$\beta$  & Lagrangian multiplier & 0.1 to 5, 5 to 400\\
+\hline
+$\epsilon$  & convergence parameter & $10\e - 4$\\
+\hline
+\end{tabularx}
+\subsection{Implementation of the Probability distributions}
+The probability $p(x)$ of the source signal  $X$ was uniformly distributed while the probability $p(y)$ of the output signal $Y$ was gaussian distributed. $Y$ had to be discretized as the quantizer to be designed can only process discrete values. Then the probability of $Y$ given $X$ represented by $p(y|x)$ which in this case is the probability of the noise(AWGN) was computed. It was ensured that the sum of the conditional probability $p(y|x)$ across $Y$ yielded 1. Also the conditional probability of $X$ given $Y$  $p(x|y)$ was obtained using Bayes rule which is given as
+\begin{equation}
+p(x|y) = p(y|x)  \frac{p(x)}{p(y)}
+\end{equation}
+The joint probability  $p(x, y)$ of $X$ and $Y$ was computed by the multiplication of $p(x)$ and $p(y|x)$. The probability $p(y)$ of $Y$ was obtained by summing the joint probability $p(x, y)$  across the X. The quantizer $p(z|y)$ was initialized to be a uniform quantizer and was used to calculate $p(z)$.\\
+Attention was paid to the order in which the dimensions of the matrices were assigned in order to avoid confusions. There were some situations in which the dimensions had to be expanded in order to have similar dimensions to carry out operations. For example in the computation of $p(x|z)$, $p(z|y)$ and $p(x, y)$ needed to be multiplied. Knowing the cardinality of each of the signals, the matrices were not of matching dimensions, hence the operation could not be performed leading to the use of the \emph{tile} and \emph{expanddims} functions of the numpy library. The cardinality of Z, $N_z$ was the first dimension, the cardinality of Y, $N_y$ was the second dimension while the cardinality of X, $N_x$ was the last dimension. Hence all matrices had the dimension ($N_z$, $N_y$, $N_x$). 
+\section{Iterative IB}
+This section details the implementation specific to the Iterative IB algorithm. The quantizer $p(z|y)$ was initialized to be a uniform quantizer with \emph{zeros} and \emph{ones} forming a step function. The Iterative IB involves  iterating through three fixed point equations and applying an update step for the next iterations.  At each step, two of the distributions are kept constant and then the algorithm that minimizes the IB function:
+\begin{equation} \label{eq:1}
+L[p(z | y)] = I(Y;Z) - \beta I(X;Z)
+\end{equation}
+At the \emph{i} + 1'th iteration, the algorithm applied an update step:
+\begin{equation}
+P^{(i+1)}(z|y) \leftarrow \frac{P^i(z)}{Z^{i+1}(y, \beta)}\e^-{\beta D_{KL}(p(x|y)||P^i(x|z))}
+\end{equation}
+where ${Z^{i+1}(y, \beta)}$ is a normalization factor. $P^i(z)$ and $P^i(x|z)$ were calculated using $P^{(i)}(z|y)$
+\begin{equation}
+P^i(z) = \sum_y p(y)P^{(i)}(z|y)
+\end{equation}
+\begin{equation}
+P^i(x|z) = \frac{1}{P^i(z)}\sum_y P^{(i)}(z|y) p(x, y)
+\end{equation}
+The algorithm was started with a fixed $\beta$ value and smaller cardinalities of Y and Z in order to ensure it runs successfully, then gradually the cardinalities were increased and also a range of beta was used.
+The  convergence parameter was set to $10\e - 4$ which was used to compare the Jensen-Shannon divergence. A \emph{while} loop was used to run the algorithm until the condition in which the Jensen-Shannon divergence was less than or equal to the convergence parameter. The Jensen-Shannon divergence measured the similarity between the previous quantizer with the current quantizer and if the value of the JS divergence between the two quantizers was less than or equal to the convergence parameter, then the present quantizer was chosen and then the Relevant Information $I(X;Z)$ and Compression Information $I(Y:Z)$ was calculated. The Relevant Information $I(X;Z)$ is upper bounded by the Mutual Information between X and Y $I(X;Y)$, while the Compression Information $I(Y:Z)$ is upper bounded by the entropy of Y $H(Y)$. 
+\section{Agglomerative IB}
+This section details the implementation specific to the Agglomerative IB algorithm. The algorithm uses a clustering technique to find a clustering tree in a \emph{bottom-up} fashion.  This algorithm aims at maximizing the function
+\begin{equation}
+L_{max} = I(X;Z) - \beta^{-1} I(Y:Z) 
+\end{equation}
+which is same as minimizing  equation \ref{eq:1}.
+The cardinalities of $Y$ and $Z$  at the start of the algorithm were set to 64 and the aim was to carry out clustering until the desired cardinality of $Z$ which was set to 32 was achieved. To reduce the cardinality of $Z$, two values of $Z$ represented by $z_i$ and $z_j$ were iteratively merged into a single value $\bar{z}$. This was done by iterating through $p(z|y)$ which was initialized to be a uniform quantizer, hence yielding:
+\begin{equation}
+p(\bar{z}|y) = p(z_i|y) + p(z_j|y), \forall x \in \mathcal{X}
+\end{equation}
+$\bar{z}$ is simply a union of $z_i$ and $z_j$. With the Markov chain in mind, $p(\bar{z})$ was obtained by:
+\begin{equation}
+p(\bar{z}) = p(z_i) + p(z_j)
+\end{equation}
+Also, $p(x|\bar{z})$ was obtained by:
+\begin{equation}
+p(x|\bar{z}) = \pi_i \cdot p(x|z_i) +  \pi_ij\cdot p(x|z_j)
+\end{equation}
+where 
+\begin{equation}
+\Pi = {\pi_i, \pi_j } = {\frac{p(z_i)}{p(\bar{z}}, \frac{p(z_j)}{p(\bar{z}}},
+\end{equation}
+is the \emph{merger distribution}.\\
+For each pair of $Z$ that was merged, the merger cost was calculated which is the difference between the values of $L_{max}$ before and after the merger. This procedure was done for all the possible mergers of $Z$ until the cardinality of 32 was reached.\\
+The difference between the values of $L_{max}$ for every merger was calculated using the formula:
+\begin{equation}
+\Delta L_{max} (z_i, z_j) = p(\bar{z}) \cdot \bar{d}(z_i, z_j) \label{eq:2}
+\end{equation}
+where 
+\begin{equation}
+ \bar{d}(z_i, z_j) = JS_\Pi [p(x|z_i), p(x|z_j)] - \beta^(-1) JS_\Pi[p(y|z_i), p(y|z_j)]
+\end{equation}
+From equation \ref{eq:2}, it can be observed that the merger cost is simply a multiplication of the merged probability $p(\bar{z}) $ and the distance between them given $\bar{d}(z_i, z_j)$.

@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 SNR_db = 3  # SNR in db
 Nx = 4   # cardinality of source signal
-Ny = 256  # cardinality of quantizer input
-Nz1 = [2, 8, 64]   # cardinality of quantizer output
+Ny = 64  # cardinality of quantizer input
+Nz1 = [8, 16, 32]   # cardinality of quantizer output
 alphabet = np.array([-1.5, -0.5, 0.5, 1.5])
 
 # mapping to ASK
@@ -109,7 +109,7 @@ for Nz in Nz1:
                 p_z = p_z1
                 pz_y = pz_y1
             count = count + 1
-    plt.plot(Iyz, Ixz, '-+', label='Nz - {}'.format(Nz))
+    plt.plot(Iyz, Ixz, linewidth=2, label='Nz - {}'.format(Nz))
     plt.title('Relevant-Compression Information Plot for different cardinalities of Z')
     plt.legend()
     plt.xlabel('I(Z;Y)')

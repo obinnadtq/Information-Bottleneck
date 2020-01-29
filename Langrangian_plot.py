@@ -8,8 +8,8 @@ np.random.seed(10)
 
 SNR_db = 6  # SNR in db
 Nx = 4  # cardinality of source signal
-Ny = 256  # cardinality of quantizer input
-Nz = np.arange(1, 65, 1)  # cardinality of quantizer output
+Ny = 64  # cardinality of quantizer input
+Nz = np.arange(1, 33, 1)  # cardinality of quantizer output
 alphabet = np.array([-1.5, -0.5, 0.5, 1.5])
 
 # mapping to ASK

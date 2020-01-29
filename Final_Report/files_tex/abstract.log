@@ -1,0 +1,40 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.12.21)  11 JAN 2020 19:43
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**abstract.tex
+(./abstract.tex
+LaTeX2e <2018-12-01>
+
+./abstract.tex:2: Package babel Error: Unknown language `english'. Either you h
+ave
+(babel)                misspelled its name, it has not been installed,
+(babel)                or you requested it in a previous run. Fix its name,
+(babel)                install it or just rerun the file, respectively. In
+(babel)                some cases, you may need to remove the aux file.
+
+See the babel package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2 \begin{otherlanguage}{english}
+                                  
+? 
+./abstract.tex:2: Emergency stop.
+ ...                                              
+                                                  
+l.2 \begin{otherlanguage}{english}
+                                  
+You may proceed, but expect wrong results
+
+ 
+Here is how much of TeX's memory you used:
+ 7 strings out of 492616
+ 591 string characters out of 6129480
+ 57827 words of memory out of 5000000
+ 4026 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 10i,0n,9p,61b,30s stack positions out of 5000i,500n,10000p,200000b,80000s
+./abstract.tex:2:  ==> Fatal error occurred, no output PDF file produced!

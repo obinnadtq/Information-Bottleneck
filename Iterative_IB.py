@@ -8,8 +8,8 @@ np.random.seed(10)
 
 SNR_db = 6  # SNR in db
 Nx = 4  # cardinality of source signal
-Ny = 256  # cardinality of quantizer input
-Nz = 64  # cardinality of quantizer output
+Ny = 64  # cardinality of quantizer input
+Nz = 32 # cardinality of quantizer output
 alphabet = np.array([-1.5, -0.5, 0.5, 1.5])
 
 # mapping to ASK
@@ -52,12 +52,13 @@ norm_sum = np.sum(py_x, 0)  # normalization for the pdf
 py_x = py_x / np.tile(norm_sum, (Ny, 1))  # p(y|x)
 p_x_y = py_x * p_x  # p(x,y) joint probability of x and y
 p_y = np.sum(p_x_y, 1)  # p(y)
-px_y = py_x * np.tile(np.expand_dims(np.tile(p_x, Ny // Nx) / p_y, axis=1), (1, Nx))
+px_y = py_x * np.tile(np.expand_dims(np.tile(p_x, Ny // Nx) / p_y, axis=1), (1, Nx))  #Bayes rule
 # Iterative IB
 beta1 = np.arange(0.01, 5, 0.001)
 beta2 = np.arange(5, 400, 0.1)
 beta = np.concatenate((beta1, beta2), axis=None)
 convergence_param = 10 ** -4
+bet = [30]
 
 # initialization of p(z|y)
 pz_y = np.zeros((Nz, Ny))
@@ -111,18 +112,22 @@ for i in range(len(beta)):
             p_z = p_z1
             pz_y = pz_y1
         count = count + 1
-
-plt.plot(Iyz, Ixz, 'b+-', linewidth=2)
-plt.title('Relevant-Compression Information Plot')
-plt.xlabel('I(Z;Y)')
-plt.ylabel('I(Z;X)')
-plt.show()
-
-plt.plot(Iyz/H_y, Ixz/I_x_y, 'b+-', linewidth=2)
-plt.title('Normalized Relevant-Compression Information Plot')
-plt.xlabel('I(Z;Y)/H(Y)')
-plt.ylabel('I(Z;X)/I(X;Y)')
-plt.xlim(0, 1)
-plt.ylim(0, 1)
-plt.show()
-
+with open('IIB_IXZ', 'w') as f:
+    for item in Ixz:
+        f.write("{}\n".format(item))
+with open('IIB_IYZ', 'w') as f:
+    for item in Iyz:
+        f.write("{}\n".format(item))
+# plt.plot(Iyz, Ixz, linewidth=2)
+# plt.title('Relevant-Compression Information Plot for Iterative Information Bottleneck')
+# plt.xlabel('I(Z;Y)')
+# plt.ylabel('I(Z;X)')
+# plt.show()
+#
+# plt.plot(Iyz/H_y, Ixz/I_x_y, 'b+-', linewidth=2)
+# plt.title('Normalized Relevant-Compression Information Plot')
+# plt.xlabel('I(Z;Y)/H(Y)')
+# plt.ylabel('I(Z;X)/I(X;Y)')
+# plt.xlim(0, 1)
+# plt.ylim(0, 1)
+# plt.show()

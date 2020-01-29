@@ -1,0 +1,244 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Used Symbols (for use in math-environment)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Environments
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{eqnarraylong}
+{
+	\begin{figure*}[t]
+	\begin{eqnarray}
+}
+{
+	\end{eqnarray}
+	\hrulefill
+	\end{figure*}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Complex Numbers
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\conj}[1]{{#1}^{\ast}}
+\newcommand{\real}[1]{{\Re} \left\{{#1}\right\}}
+\newcommand{\imag}[1]{{\Im} \left\{{#1}\right\}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Code Listing
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\makeatletter
+  %\newenvironment{Algorithm}[1]{%
+    %\begin{center}
+    %\captionsetup{style=ruled,type=algorithm,skip=0pt}
+    %\fst@algorithm\@fs@pre
+    %\caption{#1}
+    %\@fs@mid\vspace{2pt}
+  	%\sffamily
+  %}{%
+    %\vspace{2pt}\@fs@post
+    %\end{center}
+  %}
+%\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Additional Colors
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{darkcyan}{rgb}{0.004,0.2902,0.6}
+\definecolor{green}{rgb}{0,0.5,0}
+\definecolor{orange}{rgb}{0.91,0.48,0.08}
+\definecolor{lila}{rgb}{0.75,0,0.75}
+\definecolor{lightblue}{rgb}{0,0.69,0.94}
+\definecolor{silver}{rgb}{0.5,0.5,0.5}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Title Page in Corporate Design 
+% 
+% call: "\maketitle"
+%
+% required files:
+%    title_page.eps
+% required packages:
+%	graphicx, color
+% required commands:
+% 	\graphicspath{{<PATH>/}} %if graphics are in subdirectory
+%	\definecolor{darkcyan}{rgb}{0.004,0.2902,0.6}
+% require new commands: 
+%	\newcommand{\titleSubmitted}{DATE}
+%	\newcommand{\titleReviewerA}{REVIEWER1}
+%	\newcommand{\titleReviewerB}{REVIEWER2}
+%	\newcommand{\titleName}{NAME}
+%	\newcommand{\titleMatrikel}{MATRIKEL}
+%	\newcommand{\titleA}{TITLE1}
+%	\newcommand{\titleB}{TITLE2}
+%	\newcommand{\titleSubA}{SUBTITLE1}
+%	\newcommand{\titleSubB}{SUBTITLE2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[T1]{fontenc}
+\newcommand{\changefont}[4]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \fontsize{#4}{#4}\selectfont}
+%
+%\newcommand{\corpdesigntitle}
+%{ 
+	%\newpage
+	%\thispagestyle{empty}
+%%
+	%\begin{picture}(0,0)(102.5,750)
+	%\psfrag{title1}[Bl][Bl][1]{\changefont{phv}{m}{n}{22}\color{darkcyan}\titleA{}}
+	%\psfrag{title2}[Bl][Bl][1]{\changefont{phv}{m}{n}{22}\color{darkcyan}\titleB{}}
+	%\psfrag{subtitle1}[Bl][Bl][1]{\changefont{phv}{m}{n}{14}\color{black}\titleSubA{}}
+	%\psfrag{subtitle2}[Bl][Bl][1]{\changefont{phv}{m}{n}{14}\color{black}\titleSubB{}}
+%%
+	%\psfrag{date}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{eingereicht am \titleSubmitted{}}}
+	%\psfrag{by}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{von}}
+	%\psfrag{name}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}\titleName{}}
+	%\psfrag{matrikel}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{Matriculation No.: \titleMatrikel}}
+%%
+	%\psfrag{reviewer}[Bl][Bl][1]{\changefont{phv}{b}{n}{11}\color{black}{Reviewer:}}
+	%\psfrag{reviewer2}[Bl][Bl][1]{\changefont{phv}{b}{n}{11}\color{black}{Second Reviewer:}}
+	%\psfrag{name1}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}\titleReviewerA{}}
+	%\psfrag{name2}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}\titleReviewerB{}}
+	%\psfrag{university}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{Universität Rostock}}
+	%\psfrag{street1}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{Richard-Wagner-Straße 31}}
+	%\psfrag{street2}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{Richard-Wagner-Straße 31}}
+	%\psfrag{plz1}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{18119 Rostock-Warnemünde}}
+	%\psfrag{plz2}[Bl][Bl][1]{\changefont{phv}{m}{n}{11}\color{black}{18119 Rostock-Warnemünde}}
+%%
+	%\psfrag{Project}[Bl][Bl][1]{\changefont{phv}{b}{n}{12}\color{white}Master-Thesis}
+	%\psfrag{Faculty}[Bl][Bl][1]{\changefont{phv}{b}{n}{12}\color{white}{Faculty of Computer Science and Electrical Engineering}}
+%%
+	%\includegraphics{title_page}
+	%\end{picture}
+	%\clearpage
+%}
+
+\newcommand{\corpdesigntitle}
+{
+        \newpage
+        \thispagestyle{empty}
+
+\begin{picture}(0,0)(51.25,750)
+\begin{tikzpicture}
+
+%\draw ($(0,0)$) rectangle ($(\paperwidth,\paperheight)$);
+
+\node (N1) at ($(20mm,0)$) {};
+\node (N2) at ($(20mm,22mm)$) {};
+\node (N3) at ($(N1)+(170mm,0)$) {};
+\node (N4) at ($(N2)+(170mm,0)$) {};
+
+\fill[color=uniblue] (N1) rectangle (N4);
+
+\node (N5) at ($(N2)+(0,215mm)$) {};
+\node (N6) at ($(N4)+(0,215mm)$) {};
+
+\draw[line width=0.75pt,rounded corners=3mm,uniblue] ($(N1)$) -- ($(N5)$) -- ($(N6)$) -- ($(N3)$);
+
+% LOGO
+\node[anchor=north west,inner sep=0] (N7) at ($(20mm,\paperheight-20mm)$) {\includegraphics[width=115mm]{files_graphics/Universitaet_Rostock_Logo}};
+
+% Ueberschrift
+\node[anchor=north west,inner sep=0] (N8) at ($(33mm,\paperheight-75mm)$) {\changefont{phv}{m}{n}{22}\color{darkcyan}\titleA{}};
+\node[anchor=north west,inner sep=0] (N9) at ($(33mm,\paperheight-75mm-30pt)$) {\changefont{phv}{m}{n}{22}\color{darkcyan}\titleB{}};
+\node[anchor=north west,inner sep=0] (N9) at ($(33mm,\paperheight-75mm-30pt-30pt)$) {\changefont{phv}{m}{n}{22}\color{darkcyan}\titleSubA{}};
+%\node[anchor=north west,inner sep=0] (N9) at ($(33mm,\paperheight-75mm-30pt-30pt-20pt)$) {\changefont{phv}{m}{n}{14}\color{darkcyan}\titleSubB{}};
+
+% Reviewer
+\node[anchor=north west,inner sep=0] (N10) at ($(33mm,22+30mm)$) {\changefont{phv}{m}{n}{11}\color{black} 18119 Rostock-Warnem\"{u}nde};
+\node[anchor=north west,inner sep=0] (N11) at ($(0.5*\paperwidth,22+30mm)$) {\changefont{phv}{m}{n}{11}\color{black} 18119 Rostock-Warnem\"{u}nde};
+\node[anchor=north west,inner sep=0] (N12) at ($(33mm,22+30mm)+1*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} Richard-Wagner-Stra{\ss}e 31};
+\node[anchor=north west,inner sep=0] (N13) at ($(0.5*\paperwidth,22+30mm)+1*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} Richard-Wagner-Stra{\ss}e 31};
+\node[anchor=north west,inner sep=0] (N14) at ($(33mm,22+30mm)+2*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} Universit\"{a}t Rostock};
+\node[anchor=north west,inner sep=0] (N15) at ($(0.5*\paperwidth,22+30mm)+2*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} Universit\"{a}t Rostock};
+\node[anchor=north west,inner sep=0] (N16) at ($(33mm,22+30mm)+3*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} \titleReviewerA{}};
+\node[anchor=north west,inner sep=0] (N17) at ($(0.5*\paperwidth,22+30mm)+3*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} \titleReviewerB{}};
+\node[anchor=north west,inner sep=0] (N18) at ($(33mm,22+30mm)+4*(0,16pt)$) {\changefont{phv}{b}{n}{11}\color{black} Supervisor:};
+\node[anchor=north west,inner sep=0] (N19) at ($(0.5*\paperwidth,22+30mm)+4*(0,16pt)$) {\changefont{phv}{b}{n}{11}\color{black} Lead Supervisor:};
+
+% Submitted
+\node[anchor=north west,inner sep=0] (N20) at ($(33mm,22+30mm)+10*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} Matriculation Number  \titleMatrikel};
+\node[anchor=north west,inner sep=0] (N21) at ($(33mm,22+30mm)+11*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} \titleName{}};
+\node[anchor=north west,inner sep=0] (N22) at ($(33mm,22+30mm)+12*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} by};
+\node[anchor=north west,inner sep=0] (N23) at ($(33mm,22+30mm)+13*(0,16pt)$) {\changefont{phv}{m}{n}{11}\color{black} Submitted on \titleSubmitted{}};
+
+\node[anchor=south west,inner sep=0] (N24) at ($(33mm,15mm)$) 	{\changefont{phv}{m}{n}{11}\color{white} MASTERARBEIT};
+\node[anchor=south west,inner sep=0] (N24) at ($(33mm,15mm)-1*(0,16pt)$) 	{\changefont{phv}{m}{n}{11}\color{white} FAKULTÄT FÜR INFORMATIK UND ELEKTROTECHNIK};
+
+\end{tikzpicture}
+\end{picture}
+\clearpage
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% PSfrag macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%eigene:
+%Fettes A
+ \def\bA{\ensuremath{\bm{A}}}
+%\def\bAv{\ensuremath{\bm{A}_{\mathrm{c}}}}
+%\def\bAh{\ensuremath{\bm{A}_{\mathrm{r}}}}
+\def\bAh{\ensuremath{{\bm{A}^{-}}}}
+\def\bAv{\ensuremath{{\bm{A}^{|}}}}
+ \def\MSE{\ensuremath{\operatorname{MSE}}}
+%\def\MSE{\ensuremath{\operatorname{\sigma}}}
+ \def\NMSE{\ensuremath{\operatorname{NMSE}}}
+%\def\NMSE{\ensuremath{\operatorname{\sigma_{\mathrm{N}}}}}
+ \def\NMSEl{\ensuremath{\operatorname{NMSE_l}}}
+ \newcommand{\argmin}[1]{\underset{#1}{\operatorname{argmin}}}
+ \newcommand{\dznt}{\ensuremath{\Delta \bm{z}_{\mathrm{nt}}}}
+ \newcommand{\dzntz}{\ensuremath{\Delta \bm{z}_{\mathrm{nt}}}}
+ \newcommand{\minimize}[3]{\argmin{#1} \ &#2,  \\ \text{s.t.} \qquad &#3 \notag}
+\newcommand{\minimizeB}[4]{\argmin{#1} \ &#2,  \\ \text{s.t.} \qquad &#3, \notag \\ &#4 \notag}
+\newcommand{\diag}[1]{\ensuremath{\operatorname{diag}\left(#1\right)}}
+\newcommand{\F}{\ensuremath{F}}
+\newcommand{\Nv}{\ensuremath{{N^{|}}}}%N vertical
+\newcommand{\Nh}{\ensuremath{{N^{-}}}} %N horizontal
+\newcommand{\Kv}{\ensuremath{{K^{|}}}}%N vertical
+\newcommand{\Kh}{\ensuremath{{K^{-}}}} %N horizontal
+\newcommand{\Khy}{\ensuremath{{K^{-}_{\mathrm{Y}}}}} %N horizontal
+\newcommand{\Mv}{\ensuremath{{M^{|}}}}%N vertical
+\newcommand{\Mh}{\ensuremath{{M^{-}}}} %N horizontal
+
+\newcommand{\myalgorithmiccomment}[1]{\textcolor{blue}{\textit{\% #1}}}
+
+\DeclareMathOperator*{\argminA}{arg\,min} % Jan Hlavacek
+\DeclareMathOperator*{\argmaxA}{arg\,max} % Jan Hlavacek
+%\SetKwFor{Loop}{Loop}{}{EndLoop}
+%\SetKw{Quit}{quit}
+%\SetKw{Break}{break}
+%\SetKw{Initialize}{Initialize}
+%\SetKw{AND}{AND}
+%++++++++++++++++++++++++++++
+%Tikz einstellungen
+%Spaltenbreite
+\def\picWidth{0.45\textwidth}
+\def\surfaceWidth{0.25\textwidth}
+\def\doublePic{0.4\textwidth}
+\def\doublePicS{0.35\textwidth}
+\def\picScale{0.5}
+\def\verySmall{0.2\textwidth}
+
+%\numberwithin{figure}{chapter}
+%\numberwithin{equation}{chapter}
+\hyphenation{}

@@ -1,0 +1,27 @@
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\contentsline {section}{List of Abbreviations}{vii}{section*.3}% 
+\contentsline {section}{List of Symbols}{vii}{section*.4}% 
+\contentsline {section}{List of Figures}{vii}{table.0.2}% 
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}Motivation and Goal}{1}{section.1.1}% 
+\contentsline {section}{\numberline {1.2}Report Outline}{1}{section.1.2}% 
+\contentsline {chapter}{\numberline {2}Basic Theory}{3}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}Probability Density Function}{3}{section.2.1}% 
+\contentsline {subsection}{\numberline {2.1.1}Uniform Distribution}{3}{subsection.2.1.1}% 
+\contentsline {subsection}{\numberline {2.1.2}Gaussian Distribution}{3}{subsection.2.1.2}% 
+\contentsline {section}{\numberline {2.2}Concepts from Information Theory}{3}{section.2.2}% 
+\contentsline {subsection}{\numberline {2.2.1}Entropy}{3}{subsection.2.2.1}% 
+\contentsline {subsection}{\numberline {2.2.2}Mutual Information}{4}{subsection.2.2.2}% 
+\contentsline {subsection}{\numberline {2.2.3}Channel Capacity}{4}{subsection.2.2.3}% 
+\contentsline {subsection}{\numberline {2.2.4}Kullback Leibler Divergence}{4}{subsection.2.2.4}% 
+\contentsline {subsection}{\numberline {2.2.5}Jensen Shannon Divergence}{5}{subsection.2.2.5}% 
+\contentsline {subsection}{\numberline {2.2.6}Markov Chain}{5}{subsection.2.2.6}% 
+\contentsline {chapter}{\numberline {3}The Information Bottleneck Method}{7}{chapter.3}% 
+\contentsline {chapter}{\numberline {4}Implementation}{9}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}General Implementation}{9}{section.4.1}% 
+\contentsline {subsection}{\numberline {4.1.1}Implementation of the Probability distributions}{10}{subsection.4.1.1}% 
+\contentsline {section}{\numberline {4.2}Iterative IB}{11}{section.4.2}% 
+\contentsline {section}{\numberline {4.3}Agglomerative IB}{11}{section.4.3}% 

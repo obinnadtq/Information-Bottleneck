@@ -83,7 +83,7 @@ while iter_count < 1000:
     Iyz = []
     LG = []
     count = 0
-    for i in range(len(beta)):
+    for i in range(len(beta4)):
         while True:
             KL = np.sum((np.log(px_y_expanded + 1e-31) - np.log(px_z_expanded + 1e-31)) * px_y_expanded, 2)  # KL divergence
             exponential_term = np.exp(-(beta4 * KL))

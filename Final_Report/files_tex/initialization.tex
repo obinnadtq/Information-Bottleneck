@@ -1,0 +1,497 @@
+% IEEE packages ---------------------------------------------------------------------
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\usepackage{graphicx}
+%add path for PC
+\graphicspath{{/Users/obinnaisiwekpeni/Desktop/Information-Bottleneck/Final_Report/files_graphics/}}
+%{J:/Masterarbeit/Latex/MA_template/files_graphics/}
+% *** MATH PACKAGES ***
+%
+\usepackage[cmex10]{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that cannot be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[german,linesnumbered,boxed,hangingcomment]{algorithm2e}
+\SetKwRepeat{Tue}{Tue}{solange}% define do while loop
+\SetKwComment{Comment}{$\triangleright$\ }{} %change comment style
+%example:
+%\Tue{Endbedingung}{
+     % mache diese Sachen\;
+ %   }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+\usepackage{subfigure} 
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
+% This package may be useful when used in conjunction with IEEEtran.cls'
+% captionsoff option. Some IEEE journals/societies require that submissions
+% have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.3.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% For subfigure.sty:
+% \let\MYorigsubfigure\subfigure
+% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat/subfig command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a
+% page by themselves.
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no has to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+%base packages
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% correct bad hyphenation here
+%\addto{\captionsenglish}{
+	%\renewcommand{\refname}{Bibliography} %for article class
+	%\renewcommand{\bibname}{Bibliography} %for book class
+%}
+%\hyphenation{min-i-mi-za-tion
+%}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% additional math-packages
+\usepackage{trfsigns}
+\usepackage[thinspace,thinqspace,squaren,textstyle]{SIunits}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%\usepackage{mathtools}
+%\mathtoolsset{showonlyrefs} % use \refeq{eqlabel} or \eqref{eqlabel} to reference equations. Then only really referenced equations get a number.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% include geometry-packages 
+\usepackage[
+  a4paper, % = 210mm x 297mm
+  twoside, %PAGESTYLE
+  left=22mm,
+  right=22mm,
+  top=33mm,
+  bottom=30mm,
+  bindingoffset=10mm,
+  headheight=15mm
+ % hoffset=5mm,          % (1)  (see latex_help\layout.png )  
+ % voffset=10mm,         % (2)
+ % headheight=10mm,      % (5)
+ % headsep=10mm,         % (6)
+ % textheight=240mm,     % (7)
+ % textwidth=160mm,      % (8)
+ % marginparsep=10mm,    % (9)
+ % marginparwidth=12mm,  % (10)
+ % footskip=10mm,        % (11)
+]{geometry}
+
+%\setlength{\baselineskip}{17pt}
+\renewcommand{\baselinestretch}{1} % scales the value of \baselineskip. Its default value is 1.0
+%\setlength{\parskip}{\baselineskip} % distance between paragraphs
+%\setlength{\parindent}{0pt} % removes indent of paragraphs
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ %package to define headings 
+\usepackage[automark]{scrpage2}
+%define headings:
+\pagestyle{scrheadings}
+\clearscrheadfoot
+
+%\ohead{\pagemark}
+\automark[subsection]{section}
+\ofoot{\pagemark}
+%\ihead{Name}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% table packages
+\usepackage{multirow}
+\usepackage{longtable}	%enable support for tables over 2 pages
+\usepackage[table]{xcolor} %highlight cells in a table
+\usepackage{tabularx}
+\newcommand{\cellcolorA}{\cellcolor[gray]{0.9}} % Highlight Cell - command
+\newcommand{\cellcolorB}{\cellcolor[gray]{0.8}} % Highlight Cell - command
+\newcommand{\cellcolorC}{\cellcolor[gray]{0.7}} % Highlight Cell - command
+\newcommand{\cellcolorD}{\cellcolor[gray]{0.6}} % Highlight Cell - command
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% include psfrag (replace text in figures)
+\usepackage{psfrag}
+\usepackage{placeins} %placeins ist ein Paket, welches verhindert, dass Floats hinter dem Befehl \FloatBarrier erscheint. 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% include package for new algorithm-environment
+%\usepackage[Alg.,nothing]{algorithm} %25.09.2014
+\usepackage{caption}%[2007/09/01]
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%change labels
+%\renewcommand{\listfigurename}{List of Figures}
+%\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+\addto\captionsenglish{%
+	\renewcommand{\figurename}{Fig.}
+	\renewcommand{\tablename}{Tab.}
+}
+\newcommand{\sectionname}{Sec.}
+%\newcommand{\equationname}{Eq.}
+
+\newcommand{\etal}[0]{\textit{et al.}}
+\newcommand{\refFig}[1]{Fig.~\ref{#1}}
+\newcommand{\refAlg}[1]{Alg.~\ref{#1}}
+\newcommand{\refPag}[1]{p.~\pageref{#1}}
+\newcommand{\refApp}[1]{App., part~\ref{app:#1}}
+\newcommand{\refTab}[1]{Tab.~\ref{#1}}
+\newcommand{\refSec}[1]{Sec.~\ref{#1}}
+\newcommand{\refCha}[1]{Ch.~\ref{cha:#1}}
+\newcommand{\refEq}[1]{\eqref{#1}}
+
+\newcommand{\labFig}[1]{\label{fig:#1}}
+\newcommand{\labAlg}[1]{\label{alg:#1}}
+\newcommand{\labApp}[1]{\label{app:#1}}
+\newcommand{\labTab}[1]{\label{tab:#1}}
+\newcommand{\labSec}[1]{\label{sec:#1}}
+\newcommand{\labCha}[1]{\label{cha:#1}}
+\newcommand{\labEq}[1]{\label{eq:#1}}
+
+\numberwithin{equation}{chapter} %add section number to equations (e.g. "(1.4)" instead of "(4)")
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+%\numberwithin{algorithm}{chapter}%25.09
+
+%Redefine \dotfill (larger space between dots)
+\makeatletter
+\renewcommand*\dotfill{\leavevmode%
+	\leaders\hbox{$\m@th
+		\mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+		mu$}\hfill\kern\z@}
+\makeatother
+		
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Widows and orphans in LaTeX
+% When writing in LaTeX, you sometimes experience that words or short lines of text at the beginning or end of a paragraph are printed at the bottom or top of a page. 
+% This makes them separated from the rest of the text in the paragraph. Such words or lines are called widows and orphans.
+% Orphans are the first words/lines of a paragraph at the end of a page and widows are the last words/lines that appear at the page top.
+% Here, is a way to change the way LaTeX deal with these phenomena.
+%
+% The LaTeX algorithm takes these artifacts into account, but not always in a preferable way. 
+% It makes use of \widowpenalty and \clubpenalty. By default, these parameters are set to a value of 150.
+% Increasing these numbers, to for instance 500, makes them more important for LaTeX:
+\clubpenalty=150000 
+\widowpenalty=150000
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% bibliography style
+
+
+%\bibliographystyle{IEEEtran}
+\bibliographystyle{alpha}
+
+% remove default caption
+%\renewcommand{\bibname}{}
+%\renewcommand{\refname}{}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%hyperlink support 
+\usepackage[
+      pdfauthor={Autorenname}, 
+      pdftitle={Titel der Arbeit}, 
+      colorlinks=true, 
+      urlcolor=black, 
+      linkcolor=black,
+      citecolor=black,
+      pdfpagelayout=TwoPageRight,	%TwoPageRight/SinglePage %PAGESTYLE
+      bookmarksnumbered,			% bookmarks in the pdf-viewer will be numbered
+      bookmarksopen,				% bookmarks will be open when pdf-viewer is started
+      plainpages=false,				% prevents "destination with the same identifier"-Warning
+      linktocpage=true,
+      %breaklinks=true
+]{hyperref}
+
+%\usepackage{breakurl}  % When you do not compile with pdflatex (e.g. because you want to use \usepackage{psfrag}), urls with hyperref are not line wrapped. This package wraps them again and remains working lins! Great particularly for bibliographies with links.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\usepackage{acronym}
+% TexWorks hat genau hier auf einmal rumgemeckert
+%\newcommand{\bflabel}[1]{\normalfont{\normalsize{#1}}\hfill} %set font of abbreviations to normal font
+
+%% glossaries (abbreviations and symbols)
+%\usepackage[
+%	nonumberlist,		%do not show page numbers
+%	acronym,			%list of abbreviations
+%	toc,				%add labes in table of content
+%	section,			%move labes in toc to same level as sections
+%	hyperfirst=false	%suppress the first use link for all terms
+%]{glossaries}
+%
+%\newglossary[slg]{symbols}{syi}{syg}{Symbols}
+%\renewcommand*{\glspostdescription}{} %remove dot at the end of each description
+%\makeglossaries % create glossary-files
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%andere Pakete
+%\usepackage{amsfonts}  
+%Tikz matlab figures
+\usepackage{pdfpages} 
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{calc}
+
+%\pgfplotsset{compat=newest}
+%\usepgfplotslibrary{external} 
+%\tikzexternalize[prefix=TikzPictures/]
+%
+
+\usepackage{color}
+\definecolor{uniblue}{rgb}{0,0.29,0.6} % könnte Probleme machen, wenn noch xcolor eingebunden ist!!!!
+
+\usepackage{forest}
+%\usetikzlibrary{positioning}
+%\usetikzlibrary{trees,arrows,positioning}
+\usetikzlibrary{arrows,chains,matrix,positioning,scopes}
+
+%\tikzset{level 1/.style={level distance=3cm, sibling distance=2.5cm}}
+%\tikzset{level 2/.style={level distance=4cm, sibling distance=2cm}}
+
+%\tikzset{bag/.style={circle}}
+
+\usepackage{rotating} 
+\usepackage{longtable} 
+
+\makeatletter
+\tikzset{join/.code=\tikzset{after node path={%
+\ifx\tikzchainprevious\pgfutil@empty\else(\tikzchainprevious)%
+edge[every join]#1(\tikzchaincurrent)\fi}}}
+\makeatother
+%
+\tikzset{>=stealth',every on chain/.append style={join},
+         every join/.style={->}}
+\tikzstyle{labeled}=[execute at begin node=$\scriptstyle,
+   execute at end node=$]
+%
+%noch mehr andere Pakete
+
+%Für große griechische Buchstaben wie ein großes Lambda 8.02.2016
+\usepackage{ upgreek }
+%für doppelt angestrichene Buchstaben für reelle, komplexe Zahlen, Erwartungswert
+\usepackage{dsfont}

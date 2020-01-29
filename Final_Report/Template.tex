@@ -1,0 +1,83 @@
+
+\documentclass[
+	final,      % state of work (final/draft)
+	12pt,       % font size
+	a4paper,
+	oneside,     % twoside/oneside %PAGESTYLE
+	bibliography=notnumbered,
+	chapterprefix
+%]{scrartcl}
+]{scrreprt}
+
+\usepackage{scrhack}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+
+\usepackage[english]{babel}
+
+
+
+%author & title:
+\newcommand{\titleA}{Analysis and Implementation of Iterative}
+\newcommand{\titleB}{Information Bottleneck and Agglomerative}
+\newcommand{\titleSubA}{Information Bottleneck}
+
+\newcommand{\titleSubmitted}{\today{}} 
+\newcommand{\titleReviewerA}{Dipl.-Ing Clemens-Konrad Müller}
+\newcommand{\titleReviewerB}{Prof. Dr.-Ing. Volker Kühn} 
+\newcommand{\titleName}{Obinna Hilary Isiwekpeni \rule[-2bp]{1bp}{11bp} Albert-Einstein-Straße 22 \rule[-2bp]{1bp}{11bp} 18059 Rostock}
+\newcommand{\titleMatrikel}{218204763}
+
+%title and author are also define for package "hyperref"!!!
+
+% load and configure packages:
+\input{files_tex/initialization}
+
+% load macros:
+\input{files_tex/macros}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\pagenumbering{roman}
+% make the title area
+%\maketitle
+\corpdesigntitle{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+
+\includepdf{files_tex/IIB_aggloIB_comparison_specialization_module_topic}
+
+
+%ABSTRACT
+\include{files_tex/abstract}
+
+%TABLE OF CONTENT
+\setcounter{tocdepth}{2}
+\markboth{\contentsname}{}
+\pdfbookmark[1]{\contentsname}{toc} %add table of content to pdf-bookmarks
+\tableofcontents
+\cleardoublepage
+
+%GLOSSARIES
+\include{files_tex/glossaries}
+\cleardoublepage
+
+% begin of main part +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\pagenumbering{arabic}
+
+\include{files_tex/introduction}
+\cleardoublepage
+
+\include{files_tex/basic_theory}
+\cleardoublepage
+
+\include{files_tex/ib_concept}
+\cleardoublepage
+
+\include{files_tex/implementation}
+\cleardoublepage
+\end{document} 

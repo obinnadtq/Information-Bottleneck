@@ -1,0 +1,38 @@
+
+\documentclass[
+	final,      % state of work (final/draft)
+	12pt,       % font size
+	a4paper,
+	oneside,     % twoside/oneside %PAGESTYLE
+	bibliography=notnumbered,
+	chapterprefix
+%]{scrartcl}
+]{scrreprt}
+
+\usepackage{scrhack}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+
+\usepackage[english]{babel}
+
+
+%title and author are also define for package "hyperref"!!!
+
+% load and configure packages:
+\input{initialization}
+
+% load macros:
+\input{macros}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\pagenumbering{roman}
+% make the title area
+%\maketitle
+
+
+\include{basic_theory}
+\
+\end{document} 
